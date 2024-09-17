@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Blind Stick</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Smart Blind Stick</h1>
+    </header>
+    <section class="project-details">
+        <h2></h2>
+        <center><img src="Smart Blind Stick.jpeg" alt="Block Diagram"width="500"height="500"></center>
+
+        <center><h2>Working</h2></center>
+       <ul>
+        <li><b>Obstacle Detection:</b>The ultrasonic sensor continuously measures the distance to nearby objects. When an obstacle is detected within a predefined range, the ESP8266 triggers the buzzer to alert the user.</li>
+
+          <li><b>Wet Surface Detection:</b>The moisture sensor checks for the presence of water or wet surfaces. If the sensor detects moisture, the buzzer is activated to warn the user about potential slippery areas.</li>
+          
+          <li><b>Location Tracking:</b>The GPS sensor tracks the user’s location in real-time. This can be used to provide location-based navigation assistance or to send the user's location to a guardian in case of an emergency.</li>
+          
+          <li><b>Alerts and Feedback:</b>The buzzer provides audio feedback in response to obstacles, wet surfaces, or any other alert conditions, helping the user navigate safely without visual input.</li>
+          
+          <li><b>Power Supply:</b>The lithium-ion battery powers all components, ensuring that the system remains operational for extended periods during outdoor or indoor use.</li>
+       </ul>
+
+        <center><h2>Components Used</h2></center>
+        <ul>
+            <li>ESP8266</li>
+            <li>Buzzor</li>
+            <li>Ultrasonic Sensor</li>
+ <li>Moisture Sensor</li>
+ <li>GPS Sensor</li>
+ <li>Lithium-ion Battery</li>
+        </ul>
+<center><h2>Source Code</h2></center>
+        <pre>
+                                #include"NewPing.h"
+                                #include"Wire.h"           
+                                #include"LiquidCrystal_I2C.h"    
+                                LiquidCrystal_I2C lcd(0x27,16,2);
+                                int seconds = 0;
+                                const int moisturePin1 = A0; 
+                                #define TRIGGER_PIN  D6 
+                                #define ECHO_PIN     D7  
+                                const int buzzpin = D3; 
+                                #define MAX_DISTANCE 200 
+                                NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); 
+                                float tempval1;
+                                float tempval2;
+                                int finalval;
+                                void setup()
+                                {
+                                  Serial.begin(9600);                                             
+                                    pinMode(TRIGGER_PIN,OUTPUT);
+                                    pinMode(ECHO_PIN,INPUT);
+                                    pinMode(buzzpin,OUTPUT);
+                                    lcd.init();      
+                                  lcd.backlight();  
+                                }
+
+                                void loop() 
+                                    {
+                                    int moistureValue = analogRead(moisturePin1);
+                                    Serial.print("Moisture1 Value: ");
+                                    Serial.println(moistureValue);
+                                    if ((moistureValue <= 1000)||(finalval <= 40)){
+                                        digitalWrite(buzzpin,HIGH);
+                                        delay(1000);
+                                    }
+                                    else
+                                    {
+                                      digitalWrite(buzzpin,LOW);
+                                    }
+                                  delay(20);                     
+                                  Serial.print("Ping: ");
+                                  int iterations = 10;
+                                  tempval1=((sonar.ping_median(iterations) / 2) * 0.0343);
+                                  if(tempval1-tempval2>60 || tempval1-tempval2<-60)
+                                  {
+                                    tempval2=(tempval1*0.02 )+ (tempval2*0.98);
+                                  }
+                                  else
+                                  {
+                                  tempval2=(tempval1*0.4 )+ (tempval2*0.6);
+                                  }
+                                  finalval=tempval2;  
+                                  Serial.print(finalval);
+                                  Serial.println("cm");
+                                  lcd.setCursor(0,0);  
+                                  lcd.print("finalval ");
+                                  lcd.print(finalval);
+                                }
+
+                                
+                                Note:1.Please change the hotspot name and password with the connected phone to the controller(ESP8266WiFi)
+                                     2.Change the Double quotes in the header file with <>.
+        </pre>
+        <a href="index.html" class="project-link">Back to Projects</a>
+    </section>
+</body>
+</html>

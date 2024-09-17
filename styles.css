@@ -1,0 +1,92 @@
+/* Apply Gotham and Batman Fonts */
+body {
+    font-family: 'Gotham', sans-serif;
+    background-color: #000000;
+    color: #fdd835;
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    background-color: #2c2c2c;
+    color: #fdd835;
+    padding: 20px;
+    text-align: center;
+    background-image: url('Gotham1.png'); /* Add a Gotham city background */
+    background-size: cover;
+    height: 4.5cm;
+
+    
+}
+
+/* Additional styling for other elements */
+h1, p {
+    font-family: 'Batman Forever', sans-serif;
+}
+
+
+h1, h2 {
+    font-family: 'Batman Forever', sans-serif;
+}
+
+p {
+    font-family: 'Gotham', sans-serif;
+    color: #fdd835;
+}
+
+.projects {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.project-card {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    width: 30%;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.9);
+}
+
+.project-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fdd835;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.project-link:hover {
+    background-color: #b59f12;
+}
+
+footer {
+    background-color: #2c2c2c;
+    color: #fdd835;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .projects {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-card {
+        width: 90%;
+    }
+}
